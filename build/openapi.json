@@ -1,0 +1,988 @@
+{
+   "components": {
+      "schemas": {
+         "Account": {
+            "description": "Account",
+            "properties": {
+               "email": {
+                  "description": "Email",
+                  "example": "xxxx@github.com",
+                  "title": "email",
+                  "type": "string"
+               },
+               "nickname": {
+                  "description": "Nickname",
+                  "example": "mekuru_chan",
+                  "title": "nickname",
+                  "type": "string"
+               }
+            },
+            "required": [
+               "email",
+               "nickname"
+            ],
+            "title": "Account",
+            "type": "object"
+         },
+         "InternalServerError": {
+            "description": "InternalServerError",
+            "properties": {
+               "errors": {
+                  "items": {
+                     "properties": {
+                        "cause": {
+                           "description": "Cause of error.",
+                           "title": "cause",
+                           "type": "string"
+                        }
+                     },
+                     "required": [
+                        "cause"
+                     ],
+                     "type": "object"
+                  },
+                  "title": "errors",
+                  "type": "array"
+               }
+            },
+            "required": [
+               "errors"
+            ],
+            "title": "InternalServerError",
+            "type": "object"
+         },
+         "RefreshTokenRequest": {
+            "properties": {
+               "refresh_token": {
+                  "description": "Refresh token (JWT)",
+                  "example": "GEbRxBN...edjnXbL",
+                  "title": "refresh_token",
+                  "type": "string"
+               }
+            },
+            "required": [
+               "refresh_token"
+            ],
+            "title": "RefreshTokenRequest",
+            "type": "object"
+         },
+         "SigninRequest": {
+            "properties": {
+               "email": {
+                  "description": "Email",
+                  "example": "xxxx@github.com",
+                  "title": "email",
+                  "type": "string"
+               },
+               "password": {
+                  "description": "Password as plain text",
+                  "title": "password",
+                  "type": "string"
+               }
+            },
+            "required": [
+               "email",
+               "password"
+            ],
+            "title": "SigninRequest",
+            "type": "object"
+         },
+         "SignupRequest": {
+            "properties": {
+               "email": {
+                  "description": "Email",
+                  "example": "xxxx@github.com",
+                  "title": "email",
+                  "type": "string"
+               },
+               "nickname": {
+                  "description": "Nickname",
+                  "example": "mekuru_chan",
+                  "title": "nickname",
+                  "type": "string"
+               },
+               "password": {
+                  "description": "Password as plain text",
+                  "title": "password",
+                  "type": "string"
+               }
+            },
+            "required": [
+               "email",
+               "nickname",
+               "password"
+            ],
+            "title": "SignupRequest",
+            "type": "object"
+         },
+         "Token": {
+            "properties": {
+               "access_token": {
+                  "description": "Access token (JWT)",
+                  "example": "eyJz93a...k4laUWw",
+                  "title": "access_token",
+                  "type": "string"
+               },
+               "refresh_token": {
+                  "description": "Refresh token (JWT)",
+                  "example": "GEbRxBN...edjnXbL",
+                  "title": "refresh_token",
+                  "type": "string"
+               },
+               "type": {
+                  "description": "Always 'Bearer'",
+                  "example": "Bearer",
+                  "title": "type",
+                  "type": "string"
+               }
+            },
+            "required": [
+               "access_token",
+               "refresh_token",
+               "type"
+            ],
+            "title": "Token",
+            "type": "object"
+         },
+         "UpdateAccount": {
+            "properties": {
+               "email": {
+                  "description": "Email",
+                  "example": "xxxx@github.com",
+                  "title": "email",
+                  "type": "string"
+               },
+               "nickname": {
+                  "description": "Nickname",
+                  "example": "mekuru_chan",
+                  "title": "nickname",
+                  "type": "string"
+               },
+               "password": {
+                  "description": "Password as plain text",
+                  "title": "password",
+                  "type": "string"
+               }
+            },
+            "required": [
+               "email",
+               "nickname"
+            ],
+            "title": "UpdateAccount",
+            "type": "object"
+         },
+         "ValidationError": {
+            "description": "ValidationError",
+            "properties": {
+               "errors": {
+                  "items": {
+                     "properties": {
+                        "cause": {
+                           "description": "Cause of error.",
+                           "title": "cause",
+                           "type": "string"
+                        },
+                        "target": {
+                           "description": "Target field's json path.",
+                           "title": "target",
+                           "type": "string"
+                        }
+                     },
+                     "required": [
+                        "cause"
+                     ],
+                     "type": "object"
+                  },
+                  "title": "errors",
+                  "type": "array"
+               }
+            },
+            "required": [
+               "errors"
+            ],
+            "title": "ValidationError",
+            "type": "object"
+         }
+      },
+      "securitySchemes": {
+         "bearerAuth": {
+            "bearerFormat": "JWT",
+            "scheme": "bearer",
+            "type": "http"
+         }
+      }
+   },
+   "info": {
+      "contact": {
+         "name": "https://github.com/haruwo"
+      },
+      "description": "Samplecode of Swagger by Jsonnet and TypeScript.\n",
+      "title": "Samplecode of Swagger",
+      "version": "0.0.1"
+   },
+   "openapi": "3.0.0",
+   "paths": {
+      "/": {
+         "get": {
+            "description": "Root content",
+            "operationId": "root",
+            "responses": {
+               "204": {
+                  "description": "No Content"
+               }
+            },
+            "tags": [
+               "health"
+            ]
+         }
+      },
+      "/accounts/me": {
+         "get": {
+            "description": "Get account info",
+            "operationId": "account.get",
+            "responses": {
+               "200": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Account"
+                        }
+                     }
+                  },
+                  "description": "Account info",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ValidationError"
+                        }
+                     }
+                  },
+                  "description": "On validation error.",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "401": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "example": "Unauthorized",
+                           "type": "string"
+                        }
+                     }
+                  },
+                  "description": "Unauthorized",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/InternalServerError"
+                        }
+                     }
+                  },
+                  "description": "On internal server error.",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               }
+            },
+            "security": [
+               {
+                  "bearerAuth": [ ]
+               }
+            ],
+            "tags": [
+               "account"
+            ]
+         },
+         "put": {
+            "description": "put account info",
+            "operationId": "account.put",
+            "requestBody": {
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/UpdateAccount"
+                     }
+                  }
+               },
+               "required": true
+            },
+            "responses": {
+               "200": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Account"
+                        }
+                     }
+                  },
+                  "description": "Account info",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ValidationError"
+                        }
+                     }
+                  },
+                  "description": "On validation error.",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "401": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "example": "Unauthorized",
+                           "type": "string"
+                        }
+                     }
+                  },
+                  "description": "Unauthorized",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/InternalServerError"
+                        }
+                     }
+                  },
+                  "description": "On internal server error.",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               }
+            },
+            "security": [
+               {
+                  "bearerAuth": [ ]
+               }
+            ],
+            "tags": [
+               "account"
+            ]
+         }
+      },
+      "/accounts/me/signout": {
+         "post": {
+            "description": "Sign-out all sessions",
+            "operationId": "account.signout",
+            "responses": {
+               "204": {
+                  "description": "No Content",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ValidationError"
+                        }
+                     }
+                  },
+                  "description": "On validation error.",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "401": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "example": "Unauthorized",
+                           "type": "string"
+                        }
+                     }
+                  },
+                  "description": "Unauthorized",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/InternalServerError"
+                        }
+                     }
+                  },
+                  "description": "On internal server error.",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               }
+            },
+            "security": [
+               {
+                  "bearerAuth": [ ]
+               }
+            ],
+            "tags": [
+               "account",
+               "auth"
+            ]
+         }
+      },
+      "/auth/signin": {
+         "post": {
+            "description": "Sign-in as exists account.",
+            "operationId": "auth.signin",
+            "requestBody": {
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SigninRequest"
+                     }
+                  }
+               },
+               "required": true
+            },
+            "responses": {
+               "201": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Token"
+                        }
+                     }
+                  },
+                  "description": "Sing-in was succeeded.",
+                  "headers": {
+                     "Location": {
+                        "description": "Always '/account'",
+                        "schema": {
+                           "type": "string"
+                        }
+                     },
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ValidationError"
+                        }
+                     }
+                  },
+                  "description": "On validation error.",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "401": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "example": "Unauthorized",
+                           "type": "string"
+                        }
+                     }
+                  },
+                  "description": "Unauthorized",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/InternalServerError"
+                        }
+                     }
+                  },
+                  "description": "On internal server error.",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               }
+            },
+            "tags": [
+               "auth"
+            ]
+         }
+      },
+      "/auth/signup": {
+         "post": {
+            "description": "Register new account.",
+            "operationId": "auth.signup",
+            "requestBody": {
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SignupRequest"
+                     }
+                  }
+               },
+               "required": true
+            },
+            "responses": {
+               "201": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Token"
+                        }
+                     }
+                  },
+                  "description": "Registered new account",
+                  "headers": {
+                     "Location": {
+                        "description": "Always '/account'",
+                        "schema": {
+                           "type": "string"
+                        }
+                     },
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ValidationError"
+                        }
+                     }
+                  },
+                  "description": "On validation error.",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "401": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "example": "Unauthorized",
+                           "type": "string"
+                        }
+                     }
+                  },
+                  "description": "Unauthorized",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/InternalServerError"
+                        }
+                     }
+                  },
+                  "description": "On internal server error.",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               }
+            },
+            "tags": [
+               "auth"
+            ]
+         }
+      },
+      "/auth/token": {
+         "post": {
+            "description": "Refresh tokens.",
+            "operationId": "auth.token",
+            "requestBody": {
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/RefreshTokenRequest"
+                     }
+                  }
+               },
+               "required": true
+            },
+            "responses": {
+               "201": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Token"
+                        }
+                     }
+                  },
+                  "description": "Refresh tokens was succeeded.",
+                  "headers": {
+                     "Location": {
+                        "description": "Always '/account'",
+                        "schema": {
+                           "type": "string"
+                        }
+                     },
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ValidationError"
+                        }
+                     }
+                  },
+                  "description": "On validation error.",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "401": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "example": "Unauthorized",
+                           "type": "string"
+                        }
+                     }
+                  },
+                  "description": "Unauthorized",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/InternalServerError"
+                        }
+                     }
+                  },
+                  "description": "On internal server error.",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               }
+            },
+            "tags": [
+               "auth"
+            ]
+         }
+      },
+      "/health": {
+         "get": {
+            "description": "Response server health info",
+            "operationId": "health.get",
+            "responses": {
+               "200": {
+                  "content": {
+                     "text/plain": {
+                        "schema": {
+                           "example": "OK",
+                           "type": "string"
+                        }
+                     }
+                  },
+                  "description": "Status info",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ValidationError"
+                        }
+                     }
+                  },
+                  "description": "On validation error.",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "401": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "example": "Unauthorized",
+                           "type": "string"
+                        }
+                     }
+                  },
+                  "description": "Unauthorized",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/InternalServerError"
+                        }
+                     }
+                  },
+                  "description": "On internal server error.",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               }
+            },
+            "tags": [
+               "health"
+            ]
+         },
+         "head": {
+            "description": "Response server health info",
+            "operationId": "health.head",
+            "responses": {
+               "200": {
+                  "description": "Status info",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ValidationError"
+                        }
+                     }
+                  },
+                  "description": "On validation error.",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "401": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "example": "Unauthorized",
+                           "type": "string"
+                        }
+                     }
+                  },
+                  "description": "Unauthorized",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/InternalServerError"
+                        }
+                     }
+                  },
+                  "description": "On internal server error.",
+                  "headers": {
+                     "X-Request-ID": {
+                        "schema": {
+                           "description": "ID for Request tracking.",
+                           "type": "string"
+                        }
+                     }
+                  }
+               }
+            },
+            "tags": [
+               "health"
+            ]
+         }
+      }
+   },
+   "servers": [
+      {
+         "url": "https://api.fqdn/v1"
+      },
+      {
+         "url": "http://127.0.0.1:4010"
+      }
+   ],
+   "tags": [
+      {
+         "name": "auth"
+      },
+      {
+         "name": "account"
+      },
+      {
+         "name": "health"
+      }
+   ]
+}

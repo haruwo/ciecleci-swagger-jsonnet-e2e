@@ -1,0 +1,62 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: haruwo/ciecleci-swagger-jsonnet-e2e:latest
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-v1-{{ .Branch }}-
+            - node-v1-
+      - run: npm install
+      - run: npm run build
+      - run: npm run lint
+      - run: npm run test
+      - run: cp -f build/openapi.json dist/openapi.json
+      - run: npm run redoc:bundle
+      - save_cache:
+          paths:
+            - node_modules
+          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - store_artifacts:
+          path: dist
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  deploy:
+    docker:
+      - image: circleci/python
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Push dist/ as gh-pages branch
+          command: |
+            git config --global user.name "Circle CI"
+            git checkout --orphan $(date '+%Y%m%d_%H%M%S')
+            git reset
+            git clean -df --exclude=.circleci --exclude=dist
+            mv dist/* .
+            git add -A
+            git commit -m "[ci skip] gh-pages"
+            git remote rm origin
+            git remote add origin https://github:$GITHUB_TOKEN@github.com/haruwo/ciecleci-swagger-jsonnet-e2e
+            git fetch
+            git branch -m gh-pages
+            git push -f --set-upstream origin gh-pages
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master

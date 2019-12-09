@@ -1,0 +1,204 @@
+{
+  "Account": {
+    "description": "Account",
+    "properties": {
+      "email": {
+        "description": "Email",
+        "example": "xxxx@github.com",
+        "title": "email",
+        "type": "string"
+      },
+      "nickname": {
+        "description": "Nickname",
+        "example": "mekuru_chan",
+        "title": "nickname",
+        "type": "string"
+      }
+    },
+    "required": [
+      "email",
+      "nickname"
+    ],
+    "title": "Account",
+    "type": "object"
+  },
+  "InternalServerError": {
+    "description": "InternalServerError",
+    "properties": {
+      "errors": {
+        "items": {
+          "properties": {
+            "cause": {
+              "description": "Cause of error.",
+              "title": "cause",
+              "type": "string"
+            }
+          },
+          "required": [
+            "cause"
+          ],
+          "type": "object"
+        },
+        "title": "errors",
+        "type": "array"
+      }
+    },
+    "required": [
+      "errors"
+    ],
+    "title": "InternalServerError",
+    "type": "object"
+  },
+  "RefreshTokenRequest": {
+    "properties": {
+      "refresh_token": {
+        "description": "Refresh token (JWT)",
+        "example": "GEbRxBN...edjnXbL",
+        "title": "refresh_token",
+        "type": "string"
+      }
+    },
+    "required": [
+      "refresh_token"
+    ],
+    "title": "RefreshTokenRequest",
+    "type": "object"
+  },
+  "SigninRequest": {
+    "properties": {
+      "email": {
+        "description": "Email",
+        "example": "xxxx@github.com",
+        "title": "email",
+        "type": "string"
+      },
+      "password": {
+        "description": "Password as plain text",
+        "title": "password",
+        "type": "string"
+      }
+    },
+    "required": [
+      "email",
+      "password"
+    ],
+    "title": "SigninRequest",
+    "type": "object"
+  },
+  "SignupRequest": {
+    "properties": {
+      "email": {
+        "description": "Email",
+        "example": "xxxx@github.com",
+        "title": "email",
+        "type": "string"
+      },
+      "nickname": {
+        "description": "Nickname",
+        "example": "mekuru_chan",
+        "title": "nickname",
+        "type": "string"
+      },
+      "password": {
+        "description": "Password as plain text",
+        "title": "password",
+        "type": "string"
+      }
+    },
+    "required": [
+      "email",
+      "nickname",
+      "password"
+    ],
+    "title": "SignupRequest",
+    "type": "object"
+  },
+  "Token": {
+    "properties": {
+      "access_token": {
+        "description": "Access token (JWT)",
+        "example": "eyJz93a...k4laUWw",
+        "title": "access_token",
+        "type": "string"
+      },
+      "refresh_token": {
+        "description": "Refresh token (JWT)",
+        "example": "GEbRxBN...edjnXbL",
+        "title": "refresh_token",
+        "type": "string"
+      },
+      "type": {
+        "description": "Always 'Bearer'",
+        "example": "Bearer",
+        "title": "type",
+        "type": "string"
+      }
+    },
+    "required": [
+      "access_token",
+      "refresh_token",
+      "type"
+    ],
+    "title": "Token",
+    "type": "object"
+  },
+  "UpdateAccount": {
+    "properties": {
+      "email": {
+        "description": "Email",
+        "example": "xxxx@github.com",
+        "title": "email",
+        "type": "string"
+      },
+      "nickname": {
+        "description": "Nickname",
+        "example": "mekuru_chan",
+        "title": "nickname",
+        "type": "string"
+      },
+      "password": {
+        "description": "Password as plain text",
+        "title": "password",
+        "type": "string"
+      }
+    },
+    "required": [
+      "email",
+      "nickname"
+    ],
+    "title": "UpdateAccount",
+    "type": "object"
+  },
+  "ValidationError": {
+    "description": "ValidationError",
+    "properties": {
+      "errors": {
+        "items": {
+          "properties": {
+            "cause": {
+              "description": "Cause of error.",
+              "title": "cause",
+              "type": "string"
+            },
+            "target": {
+              "description": "Target field's json path.",
+              "title": "target",
+              "type": "string"
+            }
+          },
+          "required": [
+            "cause"
+          ],
+          "type": "object"
+        },
+        "title": "errors",
+        "type": "array"
+      }
+    },
+    "required": [
+      "errors"
+    ],
+    "title": "ValidationError",
+    "type": "object"
+  }
+}
